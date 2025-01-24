@@ -5,10 +5,19 @@
 #include "compiler/token.h"
 #include "util/util.h"
 
-int main(void) {
+int main(int argc, char* argv[]) {
 
     char* file_contents[1024];
-    int num_lines = read_from_file("example.6502", file_contents);
+    int num_lines = 0;
+
+    if (argc > 2) {
+        printf("Application takes one argument\n");
+    }
+    if (argc == 2) {
+        num_lines = read_from_file(argv[2], file_contents);
+    } else {
+        num_lines = read_from_file("example.asm", file_contents);
+    }
 
     for (int i = 0; i < num_lines; i++) {
         Token tokens[MAX_TOKENS];
